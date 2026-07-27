@@ -48,3 +48,5 @@ test.js
 internal_docs/
 *.flatpak
 /flatpak-repo/
+# Local CMake/Ninja build output for the Linux host tooling
+tools/pjarczak_bambu_linux_host/.build-linux-host/
