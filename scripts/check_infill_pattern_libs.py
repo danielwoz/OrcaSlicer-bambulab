@@ -53,8 +53,8 @@ FORBIDDEN = [
 ]
 
 # Code of GMP or MPFR, which are DLLs on Windows. Of the shared sources only the exact planarity check of
-# Geometry/VoronoiUtilsCgal.cpp uses them, and no pattern calls it, so a link that drops the functions a library does not
-# reach leaves none of that code.
+# Geometry/VoronoiUtilsCgalIntersection.cpp uses them, and only assertions call it, so a library of a build without
+# assertions links none of that code.
 EXACT_ARITHMETIC = (r"__gmp[a-z]*_\w|(?:^|_)mpfr_\w", "GMP or MPFR")
 
 # What a library exports besides its entry on Windows, where whatever a header declares __declspec(dllexport) is exported
@@ -74,9 +74,8 @@ IMPORTS = {
 }
 
 # The further imports of the libraries of a Windows Debug build: the debug C and C++ runtimes, and GMP and MPFR
-# (EXACT_ARITHMETIC). That build compiles without function-level linking, so a library keeps all of an object it uses:
-# the exact planarity check of Geometry/VoronoiUtilsCgal.cpp comes with the angle check that validates the Voronoi
-# diagrams of Arachne.
+# (EXACT_ARITHMETIC), which the exact planarity check of Geometry/VoronoiUtilsCgalIntersection.cpp uses; the assertions
+# of Arachne call it.
 DEBUG_IMPORTS = {
     "win32": [r"VCRUNTIME140(_1)?D\.dll", r"MSVCP140(_\d+)?D\.dll", r"ucrtbased\.dll", r"libgmp-10\.dll", r"libmpfr-4\.dll"],
 }
